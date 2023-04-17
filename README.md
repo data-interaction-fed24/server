@@ -1,2 +1,1 @@
-# server
-Node.js web server
+ Execute the 'node server.js' command in the terminal.
