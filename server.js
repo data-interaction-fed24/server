@@ -18,6 +18,10 @@ app.use(cors());
 // Parse JSON requests
 app.use(express.json());
 
+// Enable CORS for a specific port only
+// const corsOptions = { origin: 'http://localhost:3000' };
+// app.use(cors(corsOptions));
+
 // Routes
 
 app.get('/api/my_table', async (req, res) => {
