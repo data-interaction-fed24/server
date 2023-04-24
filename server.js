@@ -60,11 +60,11 @@ app.get('/api/my_table/:id', async (req, res) => {
 // Create
 
 app.post('/api/my_table', async (req, res) => {
-  const name = req.body.name;
+  const todo = req.body.name;
 
   try {
-    const queryText = 'INSERT INTO my_table(name) VALUES($1) RETURNING *';
-    const values = [name];
+    const queryText = 'INSERT INTO my_table(todo) VALUES($1) RETURNING *';
+    const values = [todo];
     const result = await pool.query(queryText, values);
     const record = result.rows[0];
     res.json(record);
@@ -98,10 +98,10 @@ app.delete('/api/my_table/:id', async (req, res) => {
   app.put('/api/my_table/:id', async (req, res) => {
     try {
       const id = req.params.id;
-      const name = req.body.name;
+      const todo = req.body.name;
   
-      const queryText = 'UPDATE my_table SET name = $2 WHERE id = $1 RETURNING *';
-      const values = [id, name];
+      const queryText = 'UPDATE my_table SET todo = $2 WHERE id = $1 RETURNING *';
+      const values = [id, todo];
       const result = await pool.query(queryText, values);
       const updatedRecord = result.rows[0];
   
