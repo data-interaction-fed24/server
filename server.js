@@ -60,7 +60,7 @@ app.get("/api/my_table/:id", async (req, res) => {
 // Create
 
 app.post("/api/my_table", async (req, res) => {
-	const todo = req.body.name;
+	const todo = req.body.todo;
 
 	try {
 		const queryText = "INSERT INTO my_table(todo) VALUES($1) RETURNING *";
@@ -98,7 +98,7 @@ app.delete("/api/my_table/:id", async (req, res) => {
 app.put("/api/my_table/:id", async (req, res) => {
 	try {
 		const id = req.params.id;
-		const todo = req.body.name;
+		const todo = req.body.todo;
 
 		const queryText = "UPDATE my_table SET todo = $2 WHERE id = $1 RETURNING *";
 		const values = [id, todo];
