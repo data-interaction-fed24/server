@@ -24,10 +24,11 @@ app.use(express.json());
 
 // Routes
 
+// get all data
 app.get("/api/my_table", async (req, res) => {
 	try {
 		const result = await pool.query("SELECT * FROM my_table");
-		res.json(result.rows);
+		res.status(200).json(result.rows);
 	} catch (error) {
 		console.error(error);
 
@@ -37,7 +38,6 @@ app.get("/api/my_table", async (req, res) => {
 });
 
 // Get by id
-
 app.get("/api/my_table/:id", async (req, res) => {
 	const id = req.params.id;
 
@@ -49,7 +49,7 @@ app.get("/api/my_table/:id", async (req, res) => {
 		if (result.rows.length === 0) {
 			res.status(404).send("Id not found");
 		} else {
-			res.json(result.rows[0]);
+			res.status(200).json(result.rows[0]);
 		}
 	} catch (error) {
 		console.error(error);
@@ -57,8 +57,7 @@ app.get("/api/my_table/:id", async (req, res) => {
 	}
 });
 
-// Create
-
+// Create a new todo
 app.post("/api/my_table", async (req, res) => {
 	const todo = req.body.todo;
 
@@ -67,7 +66,7 @@ app.post("/api/my_table", async (req, res) => {
 		const values = [todo];
 		const result = await pool.query(queryText, values);
 		const record = result.rows[0];
-		res.json(record);
+		res.status(201).json(record);
 	} catch (error) {
 		console.error(error);
 		res.status(500).send("Something went wrong");
@@ -75,7 +74,6 @@ app.post("/api/my_table", async (req, res) => {
 });
 
 // Delete by id
-
 app.delete("/api/my_table/:id", async (req, res) => {
 	try {
 		const queryText = "DELETE FROM my_table WHERE id = $1 RETURNING *";
@@ -83,7 +81,7 @@ app.delete("/api/my_table/:id", async (req, res) => {
 		const result = await pool.query(queryText, values);
 
 		if (result.rows.length > 0) {
-			res.json(result.rows[0]);
+			res.status(200).json(result.rows[0]);
 		} else {
 			res.status(404).send("Id not found");
 		}
@@ -93,8 +91,7 @@ app.delete("/api/my_table/:id", async (req, res) => {
 	}
 });
 
-// Update
-
+// Update by id
 app.put("/api/my_table/:id", async (req, res) => {
 	try {
 		const id = req.params.id;
@@ -106,7 +103,7 @@ app.put("/api/my_table/:id", async (req, res) => {
 		const updatedRecord = result.rows[0];
 
 		if (updatedRecord) {
-			res.json(updatedRecord);
+			res.status(200).json(updatedRecord);
 		} else {
 			res.status(404).send("Id not found");
 		}
