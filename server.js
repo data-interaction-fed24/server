@@ -25,6 +25,7 @@ app.use(express.json());
 // Routes
 
 // get all data
+//  This is handling the HTTP GET requests to the endpoint "/api/my_table
 app.get("/api/my_table", async (req, res) => {
 	try {
 		const result = await pool.query("SELECT * FROM my_table");
