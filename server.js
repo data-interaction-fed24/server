@@ -16,7 +16,7 @@ const pool = new Pool({
 // Enable CORS
 app.use(cors());
 // Parse JSON requests
-app.use(express.json());
+app.use(express.json()); //Content type.
 
 // Enable CORS for a specific port only
 // const corsOptions = { origin: 'http://localhost:3000' };
